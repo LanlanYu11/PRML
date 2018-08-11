@@ -87,17 +87,30 @@ class BiasVariance:
         :return: train set and test set
         """
         data = self.readFile()
-        l = len(data)
-        i = int(l*0.3)
-        for d in data:
-            if len(self.testx) == 0:
-                if random.random() < 1e-1 and i>0:
+        s = len(data)
+        i = l = int(0.4*s)
+        print(i)
+        for j in range(s):
+            if len(self.trainx) == (s-l):
+                break
+            d = data[j]
+            if len(self.testx) < l:
+                if random.random() < 1e-1 and i > 0:
+                    print(i)
                     self.testx.append(d[0])
                     self.testy.append(d[-1])
                     i -= 1
                     continue
             self.trainx.append(d[0])
             self.trainy.append(d[-1])
+        data.reverse()
+        for d in data:
+            if l == len(self.testx):
+                break
+            self.testx.append(d[0])
+            self.testy.append(d[-1])
+            print(i)
+            i -= 1
 
     def basisFuction(self, x):
         """
@@ -150,6 +163,7 @@ class BiasVariance:
         draw the real data and prediction data
         """
         X = self.testx
+        X.sort()
         Y = self.testy
         T = self.compute(X)
         print(X, Y, T)
@@ -226,17 +240,30 @@ class Bayesian:
         :return: train set and test set
         """
         data = self.readFile()
-        l = len(data)
-        i = int(l*0.3)
-        for d in data:
-            if len(self.testx) == 0:
+        s = len(data)
+        i = l = int(0.4*s)
+        print(i)
+        for j in range(s):
+            if len(self.trainx) == (s-l):
+                break
+            d = data[j]
+            if len(self.testx) < l:
                 if random.random() < 1e-1 and i > 0:
+                    print(i)
                     self.testx.append(d[0])
                     self.testy.append(d[-1])
                     i -= 1
                     continue
             self.trainx.append(d[0])
             self.trainy.append(d[-1])
+        data.reverse()
+        for d in data:
+            if l == len(self.testx):
+                break
+            self.testx.append(d[0])
+            self.testy.append(d[-1])
+            print(i)
+            i -= 1
 
     def basisFunction(self, x):
         """
@@ -371,6 +398,7 @@ class Bayesian:
         draw the real data and prediction data
         """
         X = self.testx
+        X.sort()
         Y = self.testy
         T = self.compute(X)
         print(X, Y, T)
