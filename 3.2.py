@@ -87,11 +87,14 @@ class BiasVariance:
         :return: train set and test set
         """
         data = self.readFile()
+        l = len(data)
+        i = int(l*0.3)
         for d in data:
             if len(self.testx) == 0:
-                if random.random() < 1e-1:
+                if random.random() < 1e-1 and i>0:
                     self.testx.append(d[0])
                     self.testy.append(d[-1])
+                    i -= 1
                     continue
             self.trainx.append(d[0])
             self.trainy.append(d[-1])
@@ -146,8 +149,8 @@ class BiasVariance:
         """
         draw the real data and prediction data
         """
-        X = self.trainx
-        Y = self.trainy
+        X = self.testx
+        Y = self.testy
         T = self.compute(X)
         print(X, Y, T)
         plt.figure()
@@ -223,7 +226,8 @@ class Bayesian:
         :return: train set and test set
         """
         data = self.readFile()
-        i = 2
+        l = len(data)
+        i = int(l*0.3)
         for d in data:
             if len(self.testx) == 0:
                 if random.random() < 1e-1 and i > 0:
@@ -366,8 +370,8 @@ class Bayesian:
         """
         draw the real data and prediction data
         """
-        X = self.trainx
-        Y = self.trainy
+        X = self.testx
+        Y = self.testy
         T = self.compute(X)
         print(X, Y, T)
         plt.figure()
