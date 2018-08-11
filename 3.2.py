@@ -380,7 +380,7 @@ class Bayesian:
         plt.show()
 
 if __name__ == "__main__":
-    file = "E:\PRML\Linear regression\data.txt"
+    file = ".\data.txt"
 
     """
     set the regularization coefficient for controlling the relative importance -
